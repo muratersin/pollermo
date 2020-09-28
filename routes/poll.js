@@ -40,15 +40,13 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', (req, res) => {
-  console.log(req.body.option)
-
   res.render('create', {
     errorMessage: null,
   });
 });
 
 router.get('/:slug', (req, res) => {
-  res.render('index')
-})
+  res.render('index');
+});
 
 module.exports = router;
