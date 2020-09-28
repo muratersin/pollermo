@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  div.container
+    div.home.row
+      img(src="/images/logo.png", alt="Pollermo logo")
+      h1= title
+      p Search or create quick and siple polls
+
+      form(action="poll" method="get")
+        label(for="search") Search for polls
+        input.u-full-width(placeholder="write sometings", name="q", type="text", id="search")
+        button(type="submit", class="button-primary") Search
+
+      div or
+      span
+        a(href="/poll/create", class="bold-link") Create  
+      span a poll
+

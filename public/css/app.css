@@ -1,0 +1,48 @@
+.home {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.page {
+    margin-top: 5em;
+}
+
+.list {
+    text-align: center;
+}
+
+.bold-link {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-wrapper {
+    border-bottom: 1px solid #E1E1E1;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+    background-color: white;
+    -webkit-box-shadow: 0px -5px 7px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px -5px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px -5px 7px 0px rgba(0,0,0,0.75);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.navbar .logo {
+    height: 25px;
+}
+
+.navbar .button {
+    margin-bottom: 0;
+    padding: 0 10px;
+    height: 30px;
+    line-height: unset;
+}

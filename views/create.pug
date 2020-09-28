@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  include partials/navbar
+  div.container
+    div.page
+      form(action="/poll/create", method="post", name="poll")
+        .six.columns#form-fields
+          .row
+            .column
+              label(for="question") Question
+              textarea.u-full-width(type="text", name="question", placeholder="ask me", id="question")
+          .row.option
+            .column
+              label(for="option-input") Options
+              input.u-full-width(type="text", name="option" placeholder="Option", id="option-input" oninput="onChange()")
+          .row.option
+            .column
+              input.u-full-width(type="text", name="option" placeholder="Option", oninput="onChange()")
+
+        .six.columns
+          .row
+            .column
+              label(for="ipDuplicate") IP Duplication Checking
+              select.u-full-width(id="ipDuplicate", name="dupcheck")
+                option(value="1") IP Duplication Checking
+                option(value="2") Browser Cookie Duplication Checking
+                option(value="3") No Cookie Duplication Checking
+
+              label
+                input(type="checkbox", name="multi")
+                span.label-body Allow multiple poll answers
+              label
+                input(type="checkbox", name="captcha")
+                span.label-body Improve spam prevention
+
+              input.button-primary(type="submit" value="Create Poll")
+
+    script
+        include scripts/create.js
+
+
+
+
+
+
+ 
+
