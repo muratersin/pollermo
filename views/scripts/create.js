@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 
 function getOptions() {
-  return document.querySelectorAll('input[name="option"]');
+  return document.querySelectorAll('input[name="options"]');
 }
 
 function addInput() {
@@ -17,7 +17,7 @@ function addInput() {
   input.type = 'text';
   input.className = 'u-full-width';
   input.placeholder = 'Option';
-  input.name = 'option';
+  input.name = 'options';
   input.addEventListener('input', onChange);
 
   child.append(input);
