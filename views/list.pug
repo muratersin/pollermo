@@ -8,13 +8,14 @@ block content
         thead
             tr
               th Question
-              th Total Vote
-              th Create Date
+              th.meta-colum Total Vote
+              th.meta-colum Create Date
             tbody
-              each poll in pollList
+              each poll in polls
                 tr
-                    td= poll.question
-                    td= poll.totalVote
-                    td= poll.createdAt
+                  td
+                    a(href=`/poll/${poll.slug}`)= poll.question
+                  td.meta-column= poll.totalVote
+                  td.meta-column= poll.createdAt
 
 

@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  include partials/navbar
+  div.container
+    div.page
+      .row
+        .column
+          .question= poll.question
+          each option in poll.options
+            button(class="option-btn", id=option._id, onclick=`selectOption("${option._id}", "${poll.multi}")`)= option.text
+
+          button(onclick=`submit("${poll._id}")`) Vote
+  script
+    include scripts/poll.js
+
+  
+
+
+
+
+
+
+ 
+
