@@ -1,7 +1,7 @@
 const express = require('express');
 const snakeCase = require('lodash.snakecase');
 
-const findPollBySlug = require('../middlewares/find_poll_by_slug');
+const findPollBySlug = require('../middlewares/find-poll-by-slug');
 const Poll = require('../models/poll');
 
 const router = express.Router();
@@ -57,9 +57,8 @@ router.post('/create', (req, res) => {
 router.post('/vote', async (req, res, next) => {
   try {
     const { pollId, options } = req.body;
-    console.log({ pollId, options });
     const poll = await Poll.findById(pollId).exec();
-    console.log('*************', req.ip);
+
     await poll.vote({
       options,
       ip: req.ip,
