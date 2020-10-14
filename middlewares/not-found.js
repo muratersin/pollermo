@@ -1,12 +1,9 @@
-function errorHandler(err, req, res, next) {
-  const status = err.status || 500;
+const createError = require('http-errors');
 
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+const MESSAGES = require('../constants/messages');
 
-  res.status(status);
-  res.render('error');
+function notFound(req, res, next) {
+  return next(createError(404, MESSAGES.NOT_FOUND));
 }
 
-module.exports = errorHandler;
+module.exports = notFound;
