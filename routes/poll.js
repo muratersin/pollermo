@@ -6,7 +6,7 @@ const Poll = require('../models/poll');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, err) => {
   const { q } = req.query;
   const query = {};
 
@@ -14,8 +14,13 @@ router.get('/', (req, res) => {
     query.question = { $regex: q };
   }
 
-  Poll.find(query, (err, result) => {
-    res.render('list', { title: 'Pollermo', polls: result });
+  Poll.find(query, (err, polls) => {
+    if (err) return next(err);
+
+    res.render('list', {
+      polls,
+      title: 'Pollermo - List',
+    });
   });
 });
 
@@ -25,7 +30,7 @@ router.get('/create', (req, res) => {
   });
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', (req, res, next) => {
   const { question, dupcheck, options, multi, captcha } = req.body;
   const poll = new Poll({
     question,
@@ -43,11 +48,9 @@ router.post('/create', (req, res) => {
       text: o,
     }));
 
-  poll.save((error) => {
-    if (error) {
-      return res.render('create', {
-        error,
-      });
+  poll.save((err) => {
+    if (err) {
+      return next('create', err);
     }
 
     res.redirect(`/poll/${slug}`);
@@ -71,8 +74,11 @@ router.post('/vote', async (req, res, next) => {
 });
 
 router.get('/:slug', findPollBySlug, (req, res) => {
+  const { poll } = req;
+
   res.render('poll', {
-    poll: req.poll,
+    poll,
+    title: `Poll - ${poll.question}`,
   });
 });
 
@@ -87,6 +93,7 @@ router.get('/:slug/result', findPollBySlug, (req, res) => {
 
   res.render('result', {
     poll,
+    title: `Poll Result - ${poll.question}`,
   });
 });
 
