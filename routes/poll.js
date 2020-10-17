@@ -1,28 +1,46 @@
 const express = require('express');
 const snakeCase = require('lodash.snakecase');
 
-const findPollBySlug = require('../middlewares/find-poll-by-slug');
 const Poll = require('../models/poll');
-const { getMongooseErrorMessages, makeUniqueArray } = require('../utils/misc');
+const findPollBySlug = require('../middlewares/find-poll-by-slug');
+const { getMongooseErrorMessages, makeUniqueArray, getPaginationMeta } = require('../utils/misc');
 
 const router = express.Router();
 
-router.get('/', (req, res, err) => {
-  const { q } = req.query;
-  const query = {};
+router.get('/', async (req, res, next) => {
+  try {
+    const { q, p } = req.query;
+    const page = Number(p || 1);
+    const query = {};
+    const limit = 10;
+    const skip = (page - 1) * limit;
 
-  if (q) {
-    query.question = { $regex: q };
-  }
+    if (q) {
+      query.question = { $regex: q };
+    }
 
-  Poll.find(query, (err, polls) => {
-    if (err) return next(err);
+    let polls = [];
+    const total = await Poll.countDocuments(query).exec();
+    if (total > 0) {
+      polls = await Poll.find(query).skip(skip).limit(limit).exec();
+    }
+
+    const pages = getPaginationMeta({
+      total,
+      page,
+      limit,
+      query: req.query,
+      baseUrl: req.baseUrl
+    });
 
     res.render('list', {
       polls,
       title: 'Pollermo - List',
+      meta: { pages },
     });
-  });
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get('/create', (req, res) => {

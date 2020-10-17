@@ -163,11 +163,22 @@
   border-color: #ffeeba;
 }
 
-.no-result {
-
-}
-
 .no-result img {
   height: 20rem;
   margin: 2rem 0;
+}
+
+.button.paginate {
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  margin: .5rem;
+}
+
+.button.paginate.first::after {
+  content: '...';
+}
+
+.button.paginate.last::before {
+  content: '...';
 }

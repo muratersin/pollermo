@@ -15,9 +15,9 @@ block content
                 each poll in polls
                   tr
                     td
-                      a(href=`/poll/${poll.slug}`)= poll.question
+                      a(href=`${DOMAIN}/poll/${poll.slug}`)= poll.question
                     td.meta-column= poll.totalVote
                     td.meta-column= poll.createdAt
+        include partials/pagination
       else
         include partials/no_result
-
