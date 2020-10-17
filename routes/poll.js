@@ -4,6 +4,7 @@ const snakeCase = require('lodash.snakecase');
 const Poll = require('../models/poll');
 const findPollBySlug = require('../middlewares/find-poll-by-slug');
 const { getMongooseErrorMessages, makeUniqueArray, getPaginationMeta } = require('../utils/misc');
+const Enums = require('../constants/enum');
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.get('/', async (req, res, next) => {
     let polls = [];
     const total = await Poll.countDocuments(query).exec();
     if (total > 0) {
-      polls = await Poll.find(query).skip(skip).limit(limit).exec();
+      polls = await Poll.find(query).sort('-createdAt').skip(skip).limit(limit).exec();
     }
 
     const pages = getPaginationMeta({
@@ -30,7 +31,7 @@ router.get('/', async (req, res, next) => {
       page,
       limit,
       query: req.query,
-      baseUrl: req.baseUrl
+      baseUrl: req.baseUrl,
     });
 
     res.render('list', {
@@ -78,30 +79,50 @@ router.post('/create', (req, res, next) => {
   });
 });
 
-router.post('/vote', async (req, res, next) => {
-  try {
-    const { pollId, options } = req.body;
-    const poll = await Poll.findById(pollId).exec();
+router.post('/:slug', [
+  findPollBySlug,
+  async (req, res, next) => {
+    try {
+      const { poll } = req;
+      const { options } = req.body;
+      const cookieVotedPolls = req.cookies.votedPolls || [];
 
-    await poll.vote({
-      options,
-      ip: req.ip,
+      const errorMessage = await poll.vote({
+        options,
+        ip: req.ip,
+        cookieVotedPolls,
+      });
+
+      if (errorMessage) {
+        return res.render(`poll`, {
+          errorMessage,
+          poll,
+          title: `Poll - ${poll.question}`,
+        });
+      }
+
+      if (poll.dupcheck === Enums.DUP_CHECK.BROWSER_COOKIE_DUP_CHECK) {
+        res.cookie('votedPolls', [...cookieVotedPolls, poll._id]);
+      }
+
+      res.redirect(`/poll/${poll.slug}/result`);
+    } catch (err) {
+      next(err);
+    }
+  },
+]);
+
+router.get('/:slug', [
+  findPollBySlug,
+  (req, res) => {
+    const { poll } = req;
+
+    res.render('poll', {
+      poll,
+      title: `Poll - ${poll.question}`,
     });
-
-    res.redirect(`/poll/${poll.slug}/result`);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.get('/:slug', findPollBySlug, (req, res) => {
-  const { poll } = req;
-
-  res.render('poll', {
-    poll,
-    title: `Poll - ${poll.question}`,
-  });
-});
+  },
+]);
 
 router.get('/:slug/result', findPollBySlug, (req, res) => {
   const { poll } = req;

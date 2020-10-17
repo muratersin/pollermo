@@ -9,7 +9,7 @@ function findPollBySlug(req, res, next) {
   Poll.findOne({ slug }, (err, result) => {
     if (!result) return next(createError(404, MESSAGES.NOT_FOUND));
 
-    req.poll = result.toObject({ virtuals: true });
+    req.poll = result;
     next();
   });
 };

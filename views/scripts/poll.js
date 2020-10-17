@@ -18,10 +18,10 @@ function selectOption(id, multi) {
   btn.classList.toggle(selectedClass);
 }
 
-function createForm() {
+function createForm(slug) {
   const form = document.createElement('form');
   form.method = 'POST';
-  form.action = '/poll/vote';
+  form.action = `/poll/${slug}`;
   form.style = 'display:none';
   return form;
 }
@@ -33,7 +33,7 @@ function createInput(name, value) {
   return input;
 }
 
-function submit(pollId) {
+function submit(slug) {
   const selectedOptionButtons = [...document.querySelectorAll('.option-btn.button-primary')];
 
   if (selectedOptionButtons.length < 1) {
@@ -41,10 +41,7 @@ function submit(pollId) {
   }
 
   const optionIds = selectedOptionButtons.map((b) => b.id);
-  const form = createForm();
-
-  const pollInput = createInput('pollId', pollId);
-  form.appendChild(pollInput);
+  const form = createForm(slug);
 
   for (const id of optionIds) {
     const optionInput = createInput('options', id);
