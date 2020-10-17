@@ -35,6 +35,11 @@ function createInput(name, value) {
 
 function submit(pollId) {
   const selectedOptionButtons = [...document.querySelectorAll('.option-btn.button-primary')];
+
+  if (selectedOptionButtons.length < 1) {
+    return;
+  }
+
   const optionIds = selectedOptionButtons.map((b) => b.id);
   const form = createForm();
 
