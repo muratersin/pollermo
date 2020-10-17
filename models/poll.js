@@ -9,7 +9,7 @@ const { Schema } = mongoose;
 const optionSchema = new Schema({
   text: {
     type: String,
-    required: true,
+    required: [true, "Option can't be null"],
   },
   voteCount: {
     type: Number,
@@ -24,9 +24,9 @@ const pollSchema = new Schema({
   },
   question: {
     type: String,
-    minLength: 6,
-    maxLength: 500,
-    required: true,
+    minlength: [6, 'The question must be at least 6 characters long'],
+    maxLength: [500, 'The question must be maximım 500 characters long'],
+    required: [true, "Question can't be null"],
   },
   ipDupCheck: {
     type: String,
@@ -45,7 +45,15 @@ const pollSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  options: [optionSchema],
+  options: {
+    type: [optionSchema],
+    validate: {
+      validator: function () {
+        return !(this.options.length < 2 || this.options.length > 40);
+      },
+      message: () => `Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.`,
+    },
+  },
   createdAt: {
     type: Date,
     default: new Date(),

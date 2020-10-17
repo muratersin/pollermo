@@ -36,6 +36,13 @@ block content
 
               input.button-primary(type="submit" value="Create Poll")
 
+              if errorMessages && errorMessages.length > 0
+                .alert.error
+                  ul
+                    each message in errorMessages
+                      li= message
+                  
+
     script
         include scripts/create.js
 

@@ -3,6 +3,7 @@ const snakeCase = require('lodash.snakecase');
 
 const findPollBySlug = require('../middlewares/find-poll-by-slug');
 const Poll = require('../models/poll');
+const { getMongooseErrorMessages, makeUniqueArray } = require('../utils/misc');
 
 const router = express.Router();
 
@@ -26,7 +27,7 @@ router.get('/', (req, res, err) => {
 
 router.get('/create', (req, res) => {
   res.render('create', {
-    errorMessage: null,
+    errorMessage: [],
   });
 });
 
@@ -42,7 +43,7 @@ router.post('/create', (req, res, next) => {
   const slug = `${snakeCase(question)}_${poll.id}`;
 
   poll.slug = slug;
-  poll.options = options
+  poll.options = makeUniqueArray(options)
     .filter((o) => o)
     .map((o) => ({
       text: o,
@@ -50,7 +51,9 @@ router.post('/create', (req, res, next) => {
 
   poll.save((err) => {
     if (err) {
-      return next('create', err);
+      return res.render('create', {
+        errorMessages: getMongooseErrorMessages(err),
+      });
     }
 
     res.redirect(`/poll/${slug}`);
