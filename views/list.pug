@@ -14,7 +14,7 @@ block content
               tbody
                 each poll in polls
                   tr
-                    td
+                    td.question-column 
                       a(href=`${DOMAIN}/poll/${poll.slug}`)= poll.question
                     td.meta-column= poll.totalVote
                     td.meta-column= poll.createdAt
