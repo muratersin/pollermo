@@ -8,6 +8,10 @@ const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const pollRouter = require('./routes/poll');
 
+const notFoundMiddleware = require('./middlewares/not-found');
+const errorHandlerMiddleware = require('./middlewares/error-handler');
+const setLocalesMiddleware = require('./middlewares/set-locales');
+
 if (process.env.NODE_ENV !== 'production') {
   // eslint-disable-next-line global-require, import/no-extraneous-dependencies
   require('dotenv').config();
@@ -30,28 +34,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-  res.locals.DOMAIN = process.env.DOMAIN || 'http://localhost:3000';
-  next();
-});
+app.use(setLocalesMiddleware);
 
 app.use('/', indexRouter);
 app.use('/poll', pollRouter);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
-  next(createError(404));
-});
+app.use(notFoundMiddleware);
 
 // error handler
-app.use((err, req, res) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+app.use(errorHandlerMiddleware);
 
 module.exports = app;

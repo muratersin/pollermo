@@ -1,31 +1,56 @@
 const express = require('express');
 const snakeCase = require('lodash.snakecase');
 
-const findPollBySlug = require('../middlewares/find_poll_by_slug');
 const Poll = require('../models/poll');
+const findPollBySlug = require('../middlewares/find-poll-by-slug');
+const { getMongooseErrorMessages, makeUniqueArray, getPaginationMeta } = require('../utils/misc');
+const Enums = require('../constants/enum');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const { q } = req.query;
-  const query = {};
+router.get('/', async (req, res, next) => {
+  try {
+    const { q, p } = req.query;
+    const page = Number(p || 1);
+    const query = {};
+    const limit = 10;
+    const skip = (page - 1) * limit;
 
-  if (q) {
-    query.question = { $regex: q };
+    if (q) {
+      query.question = { $regex: q };
+    }
+
+    let polls = [];
+    const total = await Poll.countDocuments(query).exec();
+    if (total > 0) {
+      polls = await Poll.find(query).sort('-createdAt').skip(skip).limit(limit).exec();
+    }
+
+    const pages = getPaginationMeta({
+      total,
+      page,
+      limit,
+      query: req.query,
+      baseUrl: req.baseUrl,
+    });
+
+    res.render('list', {
+      polls,
+      title: 'Pollermo - List',
+      meta: { pages },
+    });
+  } catch (err) {
+    next(err);
   }
-
-  Poll.find(query, (err, result) => {
-    res.render('list', { title: 'Pollermo', polls: result });
-  });
 });
 
 router.get('/create', (req, res) => {
   res.render('create', {
-    errorMessage: null,
+    errorMessage: [],
   });
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', (req, res, next) => {
   const { question, dupcheck, options, multi, captcha } = req.body;
   const poll = new Poll({
     question,
@@ -37,16 +62,16 @@ router.post('/create', (req, res) => {
   const slug = `${snakeCase(question)}_${poll.id}`;
 
   poll.slug = slug;
-  poll.options = options
+  poll.options = makeUniqueArray(options)
     .filter((o) => o)
     .map((o) => ({
       text: o,
     }));
 
-  poll.save((error) => {
-    if (error) {
+  poll.save((err) => {
+    if (err) {
       return res.render('create', {
-        error,
+        errorMessages: getMongooseErrorMessages(err),
       });
     }
 
@@ -54,28 +79,50 @@ router.post('/create', (req, res) => {
   });
 });
 
-router.post('/vote', async (req, res, next) => {
-  try {
-    const { pollId, options } = req.body;
-    console.log({ pollId, options });
-    const poll = await Poll.findById(pollId).exec();
-    console.log('*************', req.ip);
-    await poll.vote({
-      options,
-      ip: req.ip,
+router.post('/:slug', [
+  findPollBySlug,
+  async (req, res, next) => {
+    try {
+      const { poll } = req;
+      const { options } = req.body;
+      const cookieVotedPolls = req.cookies.votedPolls || [];
+
+      const errorMessage = await poll.vote({
+        options,
+        ip: req.ip,
+        cookieVotedPolls,
+      });
+
+      if (errorMessage) {
+        return res.render(`poll`, {
+          errorMessage,
+          poll,
+          title: `Poll - ${poll.question}`,
+        });
+      }
+
+      if (poll.dupcheck === Enums.DUP_CHECK.BROWSER_COOKIE_DUP_CHECK) {
+        res.cookie('votedPolls', [...cookieVotedPolls, poll._id]);
+      }
+
+      res.redirect(`/poll/${poll.slug}/result`);
+    } catch (err) {
+      next(err);
+    }
+  },
+]);
+
+router.get('/:slug', [
+  findPollBySlug,
+  (req, res) => {
+    const { poll } = req;
+
+    res.render('poll', {
+      poll,
+      title: `Poll - ${poll.question}`,
     });
-
-    res.redirect(`/poll/${poll.slug}/result`);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.get('/:slug', findPollBySlug, (req, res) => {
-  res.render('poll', {
-    poll: req.poll,
-  });
-});
+  },
+]);
 
 router.get('/:slug/result', findPollBySlug, (req, res) => {
   const { poll } = req;
@@ -88,6 +135,7 @@ router.get('/:slug/result', findPollBySlug, (req, res) => {
 
   res.render('result', {
     poll,
+    title: `Poll Result - ${poll.question}`,
   });
 });
 

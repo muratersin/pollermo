@@ -1,6 +1,13 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .row.error-page
+    .column
+      a(href=DOMAIN)
+        img(src="/images/logo.png", alt="Pollermo logo", class="logo")
+      h2= error.status
+      p= message
+      a(href=`${DOMAIN}` className="button is-primary") GO TO HOME
+      if !!error
+          pre #{error.stack}
+      

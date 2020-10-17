@@ -25,7 +25,7 @@ block content
               select.u-full-width(id="ipDuplicate", name="dupcheck")
                 option(value="1") IP Duplication Checking
                 option(value="2") Browser Cookie Duplication Checking
-                option(value="3") No Cookie Duplication Checking
+                option(value="3") No Duplication Checking
 
               label
                 input(type="checkbox", name="multi")
@@ -35,6 +35,13 @@ block content
                 span.label-body Improve spam prevention
 
               input.button-primary(type="submit" value="Create Poll")
+
+              if errorMessages && errorMessages.length > 0
+                .alert.error
+                  ul
+                    each message in errorMessages
+                      li= message
+                  
 
     script
         include scripts/create.js

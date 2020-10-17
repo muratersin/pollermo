@@ -1,0 +1,4 @@
+.pagination
+  .buttons
+    each page in meta.pages
+      a(class=`button paginate${page.current ? ' button-primary' : ''}${page.first ? ' first' : ''}${page.last ? ' last' : ''}`, href=`${DOMAIN}${page.url}`)= page.page
