@@ -28,6 +28,13 @@
   background-color: #fff9d0;
 }
 
+.list .question-column {
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width : 600px;
+}
+
 .list .meta-column {
   width: 130px;
 }
@@ -69,6 +76,7 @@
 }
 
 .question {
+  overflow-wrap: break-word;
   padding: 1rem;
   margin-bottom: 2rem;
   font-size: 2rem;
@@ -181,4 +189,27 @@
 
 .button.paginate.last::before {
   content: '...';
+}
+
+
+@media only screen and (max-width: 900px) {
+  .list .question-column {
+    max-width: 100px;
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 10px 4px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .list .question-column {
+    max-width: 100px;
+  }
+
+  th, td {
+    font-size: 14px;
+    padding: 10px 4px;
+  }
 }
