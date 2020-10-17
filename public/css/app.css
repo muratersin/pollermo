@@ -162,3 +162,12 @@
   background-color: #fff3cd;
   border-color: #ffeeba;
 }
+
+.no-result {
+
+}
+
+.no-result img {
+  height: 20rem;
+  margin: 2rem 0;
+}

@@ -9,7 +9,7 @@ block content
 
       form(action=`${DOMAIN}/poll` method="get")
         label(for="search") Search for polls
-        input.u-full-width(placeholder="write sometings", name="q", type="text", id="search")
+        input.u-full-width(placeholder="write sometings", name="q", type="text", id="search", minlength="3")
         button(type="submit", class="button-primary") Search
 
       div or

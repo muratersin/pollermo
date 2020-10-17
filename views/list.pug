@@ -4,18 +4,20 @@ block content
   include partials/navbar
   div.container
     div.list.page.row
-      table.u-full-width
-        thead
-            tr
-              th Question
-              th.meta-colum Total Vote
-              th.meta-colum Create Date
-            tbody
-              each poll in polls
-                tr
-                  td
-                    a(href=`/poll/${poll.slug}`)= poll.question
-                  td.meta-column= poll.totalVote
-                  td.meta-column= poll.createdAt
-
+      if (polls.length > 0)
+        table.u-full-width
+          thead
+              tr
+                th Question
+                th.meta-colum Total Vote
+                th.meta-colum Create Date
+              tbody
+                each poll in polls
+                  tr
+                    td
+                      a(href=`/poll/${poll.slug}`)= poll.question
+                    td.meta-column= poll.totalVote
+                    td.meta-column= poll.createdAt
+      else
+        include partials/no_result
 
