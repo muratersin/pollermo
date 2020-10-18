@@ -12,7 +12,7 @@ async function verifyCaptchaToken(token) {
   console.log('CAPT PAY', payload);
   console.log('*****************');
 
-  const response = await axios.post({
+  const response = await axios({
     method: 'post',
     url: `${url}?secret=${payload.secret}&response=${payload.response}`,
     headers: {
