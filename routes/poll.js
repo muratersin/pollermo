@@ -83,13 +83,14 @@ router.post('/:slug', [
   findPollBySlug,
   async (req, res, next) => {
     try {
-      const { poll } = req;
-      const { options } = req.body;
+      const { poll, ip } = req;
+      const { options, token } = req.body;
       const cookieVotedPolls = req.cookies.votedPolls || [];
 
       const errorMessage = await poll.vote({
+        ip,
         options,
-        ip: req.ip,
+        token,
         cookieVotedPolls,
       });
 

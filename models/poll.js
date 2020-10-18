@@ -3,6 +3,7 @@ const dayjs = require('dayjs');
 
 const Vote = require('./vote');
 const Enums = require('../constants/enum');
+const { verifyCaptchaToken } = require('../utils/helpers');
 
 const { Schema } = mongoose;
 
@@ -62,9 +63,16 @@ const pollSchema = new Schema({
   },
 });
 
-pollSchema.methods.vote = async function vote({ options, ip, cookieVotedPolls = [] }) {
+pollSchema.methods.vote = async function vote({ options, ip, token, cookieVotedPolls = [] }) {
   if (!this.multi && Array.isArray(options)) {
     throw new Error('Multiple option is not allowed for this poll.');
+  }
+
+  if (this.captcha) {
+    const isSuccess = await verifyCaptchaToken({ token, ip });
+    if (!isSuccess) {
+      return 'Request was rejected.';
+    }
   }
 
   const optionArr = Array.isArray(options) ? options : [options];
