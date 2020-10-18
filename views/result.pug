@@ -13,8 +13,9 @@ block content
               .option
                 span= option.text
                 span.percent= `%${option.percent}`
-                span.count= `${option.voteCount} Vote${option.voteCount < 1 ? '' : 's'}`
-              .result-bar(style=`width: ${option.percent}%`)
+              if option.voteCount > 0
+                .result-bar(style=`width: ${option.percent}%`)
+              .count= `${option.voteCount} Vote${option.voteCount < 2 ? '' : 's'}`
 
 
 
