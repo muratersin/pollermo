@@ -10,12 +10,16 @@ block content
           each option in poll.options
             button(class="option-btn", id=option._id, onclick=`selectOption("${option._id}", "${poll.multi}")`)= option.text
 
-          button(onclick=`submit("${poll.slug}")`) Vote
+          button(onclick=`submit("${poll.slug}", ${poll.captcha})`) Vote
 
     if errorMessage
       .alert.warning=errorMessage
       a(href=`/poll/${poll.slug}/result`): b Go To Result Page
 
+    .g-recaptcha
+    #recaptcha-container
+    
+  script(src="https://www.google.com/recaptcha/api.js?render=6Le3ntgZAAAAAKtD4n4r5hLCodacIqfa5ZIvJ8dg")
   script
     include scripts/poll.js
 

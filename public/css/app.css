@@ -131,6 +131,12 @@
   border: 0px solid #000000;
 }
 
+.option-result-wrapper .count {
+  font-weight: bold;
+  color: silver;
+  font-size: 13px;
+}
+
 .error-page {
   text-align: center;
   margin-top: 10rem;

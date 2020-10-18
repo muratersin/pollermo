@@ -33,21 +33,36 @@ function createInput(name, value) {
   return input;
 }
 
-function submit(slug) {
-  const selectedOptionButtons = [...document.querySelectorAll('.option-btn.button-primary')];
+function getToken(showCaptcha, callBack) {
+  if (!showCaptcha) return callBack();
 
-  if (selectedOptionButtons.length < 1) {
-    return;
-  }
+  grecaptcha.ready(function () {
+    grecaptcha
+      .execute('6Le3ntgZAAAAAKtD4n4r5hLCodacIqfa5ZIvJ8dg', { action: 'submit' })
+      .then(callBack);
+  });
+}
 
-  const optionIds = selectedOptionButtons.map((b) => b.id);
-  const form = createForm(slug);
+function submit(slug, showCaptcha) {
+  getToken(showCaptcha, function (token) {
+    const selectedOptionButtons = [...document.querySelectorAll('.option-btn.button-primary')];
 
-  for (const id of optionIds) {
-    const optionInput = createInput('options', id);
-    form.appendChild(optionInput);
-  }
+    if (selectedOptionButtons.length < 1) {
+      return;
+    }
 
-  document.body.appendChild(form);
-  form.submit();
+    const optionIds = selectedOptionButtons.map((b) => b.id);
+    const form = createForm(slug);
+
+    const tokenInput = createInput('token', token);
+    form.appendChild(tokenInput);
+
+    for (const id of optionIds) {
+      const optionInput = createInput('options', id);
+      form.appendChild(optionInput);
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+  });
 }
