@@ -2,17 +2,18 @@ extends layout
 
 block content
   include partials/navbar
+
   div.container
     div.page
       .row
         .column
           .question= poll.question
-
           each option in poll.options
             div(class="option-result-wrapper", id=option._id)
               .option
                 span= option.text
                 span.percent= `%${option.percent}`
+                span.count= `${option.voteCount} Vote${option.voteCount < 1 ? '' : 's'}`
               .result-bar(style=`width: ${option.percent}%`)
 
 

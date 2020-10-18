@@ -117,9 +117,19 @@
   top: 0;
   right: 0;
   background-color: #fff9d0;
-  width: 45px;
+  width: 100px;
   text-align: center;
   color: #ff6361;
+}
+
+.option-result-wrapper .option .count {
+  padding: 0.4rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  font-size: 12px;
+  text-align: center;
 }
 
 .option-result-wrapper .result-bar {
