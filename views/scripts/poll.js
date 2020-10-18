@@ -45,6 +45,7 @@ function getToken(showCaptcha, callBack) {
 
 function submit(slug, showCaptcha) {
   getToken(showCaptcha, function (token) {
+    console.log({ showCaptcha, token })
     const selectedOptionButtons = [...document.querySelectorAll('.option-btn.button-primary')];
 
     if (selectedOptionButtons.length < 1) {
