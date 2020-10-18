@@ -1,19 +1,24 @@
 const axios = require('axios');
 
-async function verifyCaptchaToken({ token, ip }) {
+async function verifyCaptchaToken(token) {
   const url = 'https://www.google.com/recaptcha/api/siteverify';
   const secret = process.env.CAPTCHA_SECRET_KEY;
   const payload = {
     secret,
     response: token,
-    remoteip: ip,
   };
 
   console.log('*****************');
   console.log('CAPT PAY', payload);
   console.log('*****************');
 
-  const response = await axios.post(url, payload);
+  const response = await axios.post({
+    method: 'post',
+    url: `${url}?secret=${payload.secret}&response=${payload.response}`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
   console.log('*****************');
   console.log('CAPT PAY', response.data);
   console.log('*****************');

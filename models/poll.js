@@ -69,7 +69,7 @@ pollSchema.methods.vote = async function vote({ options, ip, token, cookieVotedP
   }
 
   if (this.captcha) {
-    const isSuccess = await verifyCaptchaToken({ token, ip });
+    const isSuccess = await verifyCaptchaToken(token);
     if (!isSuccess) {
       return 'Request was rejected.';
     }
