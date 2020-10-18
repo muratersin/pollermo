@@ -21,6 +21,6 @@ async function verifyCaptchaToken({ token, ip }, callBack) {
     });
 }
 
-module.export = {
+module.exports = {
   verifyCaptchaToken,
 };
