@@ -1,0 +1,13 @@
+mixin ip_dup_status({ dupcheck, ipDupCheckTitle, captcha, multi })
+  .poll-properties
+    div
+      img(src=`${CDN}/icons/${dupcheck === '3' ? 'unlock' : 'lock'}.svg`, alt="ip duplication")
+      span= ipDupCheckTitle
+    if captcha
+      div
+        img(src=`${CDN}/icons/shield.svg`, alt="ip duplication")
+        span Spam prevention
+    if multi
+      div
+        img(src=`${CDN}/icons/check-square.svg`, alt="ip duplication")
+        span Multiple poll answer

@@ -3,7 +3,8 @@ function resultPageController(req, res) {
 
   poll.options = poll.options.map((o) => {
     const option = o;
-    option.percent = Math.round((option.voteCount * 100) / poll.totalVote);
+    const totalVote = poll.totalVote || 1;
+    option.percent = Math.round((option.voteCount * 100) / totalVote);
     return option;
   });
 

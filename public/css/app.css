@@ -193,8 +193,25 @@
   content: '...';
 }
 
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
 .button.paginate.last::before {
   content: '...';
+}
+
+.poll-properties div {
+  display: flex;
+  align-items: center;
+  margin-bottom: .3rem;
+  font-size: 12px;
+}
+
+.poll-properties div img {
+  height: 1.5rem;
+  margin-right: .5rem;
 }
 
 

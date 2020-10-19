@@ -115,4 +115,17 @@ pollSchema.virtual('totalVote').get(function totalVote() {
   return this.options.reduce((acc, option) => acc + option.voteCount, 0);
 });
 
+pollSchema.virtual('ipDupCheckTitle').get(function totalVote() {
+  switch (this.dupcheck) {
+    case Enums.DUP_CHECK.IP_DUP_CHECK:
+      return 'IP Duplication Checking';
+
+    case Enums.DUP_CHECK.BROWSER_COOKIE_DUP_CHECK:
+      return 'Browser Cookie Duplication Checking';
+
+    default:
+      return 'No Duplication Checking';
+  }
+});
+
 module.exports = mongoose.model('Poll', pollSchema);
