@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose');
 const dayjs = require('dayjs');
 
@@ -49,11 +50,11 @@ const pollSchema = new Schema({
   options: {
     type: [optionSchema],
     validate: {
-      validator: function () {
+      validator() {
         return !(this.options.length < 2 || this.options.length > 40);
       },
       message: () =>
-        `Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.`,
+        "Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.",
     },
   },
   createdAt: {
@@ -63,7 +64,12 @@ const pollSchema = new Schema({
   },
 });
 
-pollSchema.methods.vote = async function vote({ options, ip, token, cookieVotedPolls = [] }) {
+pollSchema.methods.vote = async function vote({
+  options,
+  ip,
+  token,
+  cookieVotedPolls = [],
+}) {
   if (!this.multi && Array.isArray(options)) {
     throw new Error('Multiple option is not allowed for this poll.');
   }
@@ -105,10 +111,8 @@ pollSchema.methods.vote = async function vote({ options, ip, token, cookieVotedP
   await this.save();
 };
 
-pollSchema.virtual('totalVote').get(function () {
-  return this.options.reduce((acc, option) => {
-    return acc + option.voteCount;
-  }, 0);
+pollSchema.virtual('totalVote').get(function totalVote() {
+  return this.options.reduce((acc, option) => acc + option.voteCount, 0);
 });
 
 module.exports = mongoose.model('Poll', pollSchema);

@@ -1,16 +1,24 @@
 const makeUniqueArray = (arr) => [...new Set(arr)];
 
+const toQueryString = (obj) => new URLSearchParams(obj).toString();
+
 const getMongooseErrorMessages = ({ errors }) => {
   const messages = [];
 
-  for (let key in errors) {
+  Object.keys(errors).forEach((key) => {
     messages.push(errors[key].message);
-  }
+  });
 
   return makeUniqueArray(messages);
 };
 
-function getPaginationMeta({ total, page, limit, baseUrl, query = {} }) {
+function getPaginationMeta({
+  total,
+  page,
+  limit,
+  baseUrl,
+  query = {},
+}) {
   const totalPage = Math.ceil(total / limit);
   const pages = [];
   const min = page - 3 < 1 ? 1 : page - 3;
@@ -42,8 +50,6 @@ function getPaginationMeta({ total, page, limit, baseUrl, query = {} }) {
 
   return pages;
 }
-
-const toQueryString = (obj) => new URLSearchParams(obj).toString();
 
 module.exports = {
   makeUniqueArray,

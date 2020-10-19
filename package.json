@@ -7,7 +7,9 @@
     "start": "node ./bin/www",
     "watch": "nodemon ./bin/www",
     "start-dev": "set DEBUG=pollermo:* & npm run watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint app --ext .js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "keywords": [],
   "author": "",

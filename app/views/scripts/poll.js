@@ -36,7 +36,7 @@ function createInput(name, value) {
 function getToken(showCaptcha, callBack) {
   if (!showCaptcha) return callBack();
 
-  grecaptcha.ready(function () {
+  grecaptcha.ready(() => {
     grecaptcha
       .execute('6Le3ntgZAAAAAKtD4n4r5hLCodacIqfa5ZIvJ8dg', { action: 'submit' })
       .then(callBack);
@@ -44,9 +44,10 @@ function getToken(showCaptcha, callBack) {
 }
 
 function submit(slug, showCaptcha) {
-  getToken(showCaptcha, function (token) {
-    console.log({ showCaptcha, token })
-    const selectedOptionButtons = [...document.querySelectorAll('.option-btn.button-primary')];
+  getToken(showCaptcha, (token) => {
+    const selectedOptionButtons = [
+      ...document.querySelectorAll('.option-btn.button-primary'),
+    ];
 
     if (selectedOptionButtons.length < 1) {
       return;
