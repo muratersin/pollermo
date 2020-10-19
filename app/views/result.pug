@@ -2,13 +2,14 @@ extends layout
 
 block content
   include partials/navbar
-  include mixins/ip_dup_status
+  include mixins/poll_properties
 
   div.container
     div.page
       .row
         .column
           .question= poll.question
+
           each option in poll.options
             div(class="option-result-wrapper", id=option._id)
               .option
@@ -17,8 +18,10 @@ block content
               if option.voteCount > 0
                 .result-bar(style=`width: ${option.percent}%`)
               .count= `${option.voteCount} Vote${option.voteCount < 2 ? '' : 's'}`
+
           .actions
-          +ip_dup_status(poll)
+            +poll_properties(poll)
+            a(class="button", href=`${DOMAIN}/poll/${poll.slug}`) Vote
 
 
 
