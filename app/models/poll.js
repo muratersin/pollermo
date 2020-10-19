@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose');
 const dayjs = require('dayjs');
 
@@ -49,21 +50,26 @@ const pollSchema = new Schema({
   options: {
     type: [optionSchema],
     validate: {
-      validator: function () {
+      validator() {
         return !(this.options.length < 2 || this.options.length > 40);
       },
       message: () =>
-        `Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.`,
+        "Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.",
     },
   },
   createdAt: {
     type: Date,
-    default: new Date(),
+    default: dayjs().valueOf(),
     get: (v) => dayjs(v).format('MM/DD/YYYY HH:mm'),
   },
 });
 
-pollSchema.methods.vote = async function vote({ options, ip, token, cookieVotedPolls = [] }) {
+pollSchema.methods.vote = async function vote({
+  options,
+  ip,
+  token,
+  cookieVotedPolls = [],
+}) {
   if (!this.multi && Array.isArray(options)) {
     throw new Error('Multiple option is not allowed for this poll.');
   }
@@ -105,10 +111,21 @@ pollSchema.methods.vote = async function vote({ options, ip, token, cookieVotedP
   await this.save();
 };
 
-pollSchema.virtual('totalVote').get(function () {
-  return this.options.reduce((acc, option) => {
-    return acc + option.voteCount;
-  }, 0);
+pollSchema.virtual('totalVote').get(function totalVote() {
+  return this.options.reduce((acc, option) => acc + option.voteCount, 0);
+});
+
+pollSchema.virtual('ipDupCheckTitle').get(function totalVote() {
+  switch (this.dupcheck) {
+    case Enums.DUP_CHECK.IP_DUP_CHECK:
+      return 'IP Duplication Checking';
+
+    case Enums.DUP_CHECK.BROWSER_COOKIE_DUP_CHECK:
+      return 'Browser Cookie Duplication Checking';
+
+    default:
+      return 'No Duplication Checking';
+  }
 });
 
 module.exports = mongoose.model('Poll', pollSchema);

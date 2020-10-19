@@ -8,7 +8,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12,
   },
+  globals: {
+    grecaptcha: true,
+  },
   rules: {
-    'consistent-return': false
+    'consistent-return': 0,
+    'implicit-arrow-linebreak': 0,
   },
 };

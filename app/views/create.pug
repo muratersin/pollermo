@@ -1,7 +1,9 @@
 extends layout
 
 block content
+
   include partials/navbar
+
   div.container
     div.page
       form(action="/poll/create", method="post", name="poll")

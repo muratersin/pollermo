@@ -8,10 +8,6 @@ async function verifyCaptchaToken(token) {
     response: token,
   };
 
-  console.log('*****************');
-  console.log('CAPT PAY', payload);
-  console.log('*****************');
-
   const response = await axios({
     method: 'post',
     url: `${url}?secret=${payload.secret}&response=${payload.response}`,
@@ -19,9 +15,6 @@ async function verifyCaptchaToken(token) {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
-  console.log('*****************');
-  console.log('CAPT PAY', response.data);
-  console.log('*****************');
 
   return response.data.success;
 }

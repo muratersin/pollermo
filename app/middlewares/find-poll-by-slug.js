@@ -12,6 +12,6 @@ function findPollBySlug(req, res, next) {
     req.poll = result;
     next();
   });
-};
+}
 
 module.exports = findPollBySlug;

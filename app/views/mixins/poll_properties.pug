@@ -1,0 +1,16 @@
+mixin poll_properties({ createdAt, dupcheck, ipDupCheckTitle, captcha, multi })
+  .poll-properties
+    div
+      img(src=`${CDN}/icons/calendar.svg`, alt="Calendar")
+      span= createdAt
+    div
+      img(src=`${CDN}/icons/${dupcheck === '3' ? 'unlock' : 'lock'}.svg`, alt="Lock")
+      span= ipDupCheckTitle
+    if captcha
+      div
+        img(src=`${CDN}/icons/shield.svg`, alt="Shield")
+        span Spam prevention
+    if multi
+      div
+        img(src=`${CDN}/icons/check-square.svg`, alt="Check")
+        span Multiple poll answer
