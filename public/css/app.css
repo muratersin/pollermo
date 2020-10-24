@@ -315,12 +315,12 @@ a {
   font-size: 12px;
 }
 
-.alert {
+.toast {
   position: absolute;
   left: 1rem;
   bottom: 1rem;
   font-weight: bold;
-  background-color: #33C3F0;
+  background-color: #33c3f0;
   border: 1px solid #25ccff;
   color: white;
   border-radius: 3px;
@@ -336,16 +336,17 @@ a {
     font-size: 14px;
     padding: 10px 4px;
   }
-}
 
-@media only screen and (max-width: 900px) {
-  .list .question-column {
-    max-width: 100px;
+  .poll-buttons {
+    flex-direction: column;
   }
 
-  th,
-  td {
-    font-size: 14px;
-    padding: 10px 4px;
+  .poll-buttons button,
+  a {
+    margin-left: 0;
+  }
+
+  .share-button {
+    justify-content: center;
   }
 }
