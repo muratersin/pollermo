@@ -4,11 +4,11 @@ html(lang="en")
     title= title || 'Pollermo - Create quick and simple polls'
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content= title)
     link(rel="favicon" href="favicon.ico")
     link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap')
     link(rel='stylesheet', href=`${DOMAIN}/css/normalize.css`)
     link(rel='stylesheet', href=`${DOMAIN}/css/skeleton.css`)
     link(rel='stylesheet', href=`${DOMAIN}/css/app.css`)
-    script(src="https://www.google.com/recaptcha/api.js?render=6Le3ntgZAAAAAKtD4n4r5hLCodacIqfa5ZIvJ8dg")
   body
       block content
