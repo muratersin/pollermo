@@ -1,11 +1,14 @@
 extends layout
 
 block content
-  include partials/navbar
+  if !isEmbeded
+    include partials/navbar
   include mixins/poll_properties
+  include mixins/share_button
 
-  div.container
+  div(class=isEmbeded ? 'embeded' : 'container')
     div.page
+      +poll_properties(poll)
       .row
         .column
           .question= poll.question
@@ -20,10 +23,11 @@ block content
               .count= `${option.voteCount} Vote${option.voteCount < 2 ? '' : 's'}`
 
           .actions
-            +poll_properties(poll)
+            +share_button(poll.slug, poll.resultUrl)
             a(class="button", href=`${DOMAIN}/poll/${poll.slug}`) Vote
 
-
+  script
+    include scripts/common.js
 
   
 

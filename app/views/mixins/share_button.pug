@@ -1,0 +1,35 @@
+mixin share_button(slug, url, title)
+  .share
+    button.share-button(onclick="openShare()")
+      img(src=`${CDN}/icons/share-2.svg`, alt="Share")
+      span Share
+
+    .share-poll-dropdown
+      .social-link
+        a(href=`https://twitter.com/intent/tweet?text=${title}&url=${encodeURIComponent(`${DOMAIN}/${url}`)}`, target="_blank")
+          img(src=`${CDN}/images/twitter.svg`, alt="Twitter")
+          span Twitter
+      .social-link
+        a(href=`https://www.reddit.com/submit?title=${title}&url=${encodeURIComponent(`${DOMAIN}/${url}`)}`, target="_blank")
+          img(src=`${CDN}/images/reddit.svg`, alt="Reddit")
+          span Reddit
+      .copy-links
+      .social-link
+        a(href=`https://t.me/share/url?url=${encodeURIComponent(`${DOMAIN}/${url}`)}&text=${title}`, target="_blank")
+          img(src=`${CDN}/images/telegram.svg`, alt="Telegram")
+          span Telegram
+      .social-link
+        a(href=`https://wa.me/?text=${encodeURIComponent(`${title} ${DOMAIN}/${url}`)}`, target="_blank")
+          img(src=`${CDN}/images/whatsapp.svg`, alt="WhatsApp")
+          span WhatsApp
+      .copy-links
+        div
+          label(for="copyUrl") URL
+          input(value=`${DOMAIN}/${url}`, type="text", id="copyUrl", class="copy-input", readonly)
+        div
+          label(for="embeded") Embeded
+          input(value=`<iframe src="${DOMAIN}/${url}?embeded" style="width:680px;height:457px;border:0;">Loading...</iframe>`, type="text", id="embeded", class="copy-input", readonly)
+          
+
+
+

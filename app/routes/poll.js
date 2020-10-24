@@ -2,6 +2,7 @@
 const express = require('express');
 
 const findPollBySlug = require('../middlewares/find-poll-by-slug');
+const isEmbeded = require('../middlewares/is-embeded');
 
 const poll = require('../controllers/poll');
 
@@ -15,8 +16,8 @@ router.post('/create', poll.createController);
 
 router.post('/:slug', [findPollBySlug, poll.voteController]);
 
-router.get('/:slug', [findPollBySlug, poll.pollPageController]);
+router.get('/:slug', [findPollBySlug, isEmbeded, poll.pollPageController]);
 
-router.get('/:slug/result', [findPollBySlug, poll.resultPageController]);
+router.get('/:slug/result', [findPollBySlug, isEmbeded, poll.resultPageController]);
 
 module.exports = router;

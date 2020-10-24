@@ -1,31 +1,32 @@
 extends layout
 
 block content
-  include partials/navbar
+  if !isEmbeded
+    include partials/navbar
   include mixins/poll_properties
+  include mixins/share_button
 
-  div.container
+  div(class=isEmbeded ? 'embeded' : 'container')
     div.page
+      +poll_properties(poll)
       .row
         .column
           .question= poll.question
           each option in poll.options
             button(class="option-btn", id=option._id, onclick=`selectOption("${option._id}", "${poll.multi}")`)= option.text
 
-          .actions
-            +poll_properties(poll)
-            div
-              a(class="button", href=`${DOMAIN}/poll/${poll.slug}/result`) Result
-              button(class="button-primary vote-button", onclick=`submit("${poll.slug}", ${poll.captcha})`) Vote
+          .poll-buttons
+            +share_button(poll.slug, poll.url, poll.question)
+            a(class="button", href=`${DOMAIN}/poll/${poll.slug}/result`) Result
+            button(class="button-primary vote-button", onclick=`submit("${poll.slug}", ${poll.captcha})`) Vote
 
     if errorMessage
       .alert.warning=errorMessage
       a(href=`/poll/${poll.slug}/result`): b Go To Result Page
 
-    
-  script(src="https://www.google.com/recaptcha/api.js?render=6Le3ntgZAAAAAKtD4n4r5hLCodacIqfa5ZIvJ8dg")
   script
     include scripts/poll.js
+    include scripts/common.js
 
   
 

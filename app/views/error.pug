@@ -5,7 +5,8 @@ block content
     .column
       a(href=DOMAIN)
         img(src="/images/logo.png", alt="Pollermo logo", class="logo")
-      h2= error.status
+      h1= error.status
+      h2= errorTitle
       p= message
       a(href=`${DOMAIN}` className="button is-primary") GO TO HOME
       if !!error
