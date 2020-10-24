@@ -115,6 +115,14 @@ pollSchema.virtual('totalVote').get(function totalVote() {
   return this.options.reduce((acc, option) => acc + option.voteCount, 0);
 });
 
+pollSchema.virtual('url').get(function totalVote() {
+  return `poll/${this.slug}`;
+});
+
+pollSchema.virtual('resultUrl').get(function totalVote() {
+  return `poll/${this.slug}/result`;
+});
+
 pollSchema.virtual('ipDupCheckTitle').get(function totalVote() {
   switch (this.dupcheck) {
     case Enums.DUP_CHECK.IP_DUP_CHECK:

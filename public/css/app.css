@@ -7,6 +7,16 @@
   margin-top: 5em;
 }
 
+.embeded {
+  padding: 1rem;
+  width: 600px;
+  height: 400px;
+}
+
+.embeded .page {
+  margin: 0;
+}
+
 .list {
   text-align: center;
 }
@@ -29,10 +39,10 @@
 }
 
 .list .question-column {
-  overflow:hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width : 600px;
+  max-width: 600px;
 }
 
 .list .meta-column {
@@ -186,7 +196,7 @@
   width: 4rem;
   height: 4rem;
   padding: 0;
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 .button.paginate.first::after {
@@ -198,24 +208,122 @@
   justify-content: space-between;
 }
 
+.poll-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.poll-buttons button,
+a {
+  margin-left: 1rem;
+}
+
+.share-button img {
+  height: 1.7rem;
+  margin-right: 0.5rem;
+}
+
+.share-button {
+  display: flex;
+  align-items: center;
+}
+
 .button.paginate.last::before {
   content: '...';
 }
 
-.poll-properties div {
+.poll-properties {
+  display: flex;
+  margin: 1rem 0;
+  font-size: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.poll-properties img {
+  height: 1.5rem;
+}
+
+.poll-properties .right {
+  text-align: right;
+}
+
+.poll-properties .right img {
+  margin-left: 0.5rem;
+}
+
+.poll-properties .left img {
+  margin-right: 0.5rem;
+}
+
+.poll-properties div .prop {
   display: flex;
   align-items: center;
-  margin-bottom: .3rem;
+}
+
+.poll-properties .right .prop {
+  justify-content: flex-end;
+}
+
+.share {
+  position: relative;
+}
+
+.share-poll-dropdown {
+  position: absolute;
+  top: 4.2rem;
+  left: 0;
+  background-color: white;
+  border: 1px solid silver;
+  border-radius: 4px;
+  display: none;
+}
+
+.share-poll-dropdown.show {
+  display: block;
+}
+
+.share-poll-dropdown .social-link {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid silver;
+  justify-content: center;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.share-poll-dropdown .social-link img {
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+.share-poll-dropdown .social-link a {
+  display: flex;
+  align-items: center;
+}
+
+.share-poll-dropdown .copy-links {
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.share-poll-dropdown .copy-links div input {
+  height: 30px;
+}
+
+.share-poll-dropdown .copy-links div label {
   font-size: 12px;
 }
 
-.poll-properties div img {
-  height: 1.5rem;
-  margin-right: .5rem;
-}
-
-.vote-button {
-  margin-left: 1rem;
+.alert {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  font-weight: bold;
+  background-color: #33C3F0;
+  border: 1px solid #25ccff;
+  color: white;
+  border-radius: 3px;
 }
 
 @media only screen and (max-width: 900px) {
@@ -223,7 +331,8 @@
     max-width: 100px;
   }
 
-  th, td {
+  th,
+  td {
     font-size: 14px;
     padding: 10px 4px;
   }
@@ -234,7 +343,8 @@
     max-width: 100px;
   }
 
-  th, td {
+  th,
+  td {
     font-size: 14px;
     padding: 10px 4px;
   }

@@ -3,7 +3,6 @@ const { getPaginationMeta } = require('../../utils/misc');
 
 async function listPageController(req, res, next) {
   try {
-    throw new Error('asd');
     const { q, p } = req.query;
     const page = Number(p || 1);
     const query = {};
@@ -17,7 +16,11 @@ async function listPageController(req, res, next) {
     let polls = [];
     const total = await Poll.countDocuments(query).exec();
     if (total > 0) {
-      polls = await Poll.find(query).sort('-createdAt').skip(skip).limit(limit).exec();
+      polls = await Poll.find(query)
+        .sort('-createdAt')
+        .skip(skip)
+        .limit(limit)
+        .exec();
     }
 
     const pages = getPaginationMeta({
