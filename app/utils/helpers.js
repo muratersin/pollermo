@@ -1,4 +1,8 @@
 const axios = require('axios');
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+
+dayjs.extend(utc);
 
 async function verifyCaptchaToken(token) {
   const url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -21,4 +25,5 @@ async function verifyCaptchaToken(token) {
 
 module.exports = {
   verifyCaptchaToken,
+  dayjs,
 };
