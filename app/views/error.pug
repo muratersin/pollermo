@@ -4,7 +4,7 @@ block content
   .row.error-page
     .column
       a(href=DOMAIN)
-        img(src="/images/logo.png", alt="Pollermo logo", class="logo")
+        include partials/logo
       h1= error.status
       h2= errorTitle
       p= message

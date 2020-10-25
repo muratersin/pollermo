@@ -7,8 +7,7 @@ html(lang="en")
     meta(name="description", content= title)
     link(rel="favicon" href="favicon.ico")
     link(rel='stylesheet', href='https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;700&display=swap')
-    link(rel='stylesheet', href=`${DOMAIN}/css/normalize.css`)
-    link(rel='stylesheet', href=`${DOMAIN}/css/skeleton.css`)
-    link(rel='stylesheet', href=`${DOMAIN}/css/app.css`)
+    link(rel='stylesheet', href=`${CDN}/dist/index.css`)
+    script(src=`${CDN}/dist/index.js`)
   body
       block content
