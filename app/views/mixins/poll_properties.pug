@@ -2,17 +2,17 @@ mixin poll_properties({ createdAt, dupcheck, ipDupCheckTitle, captcha, multi })
   .poll-properties
     .left
       div.prop
-        img(src=`${CDN}/icons/calendar.svg`, alt="Calendar")
+        i(data-feather="calendar")
         span= createdAt
       if captcha
         div.prop
-          img(src=`${CDN}/icons/${dupcheck === '3' ? 'unlock' : 'lock'}.svg`, alt="Lock")
+          i(data-feather=`${dupcheck === '3' ? 'unlock' : 'lock'}`)
           span= ipDupCheckTitle
     .right
       div.prop
         span Spam prevention
-        img(src=`${CDN}/icons/shield.svg`, alt="Shield")
+        i(data-feather="shield")
       if multi
         div.prop
           span Multiple poll answer
-          img(src=`${CDN}/icons/check-square.svg`, alt="Check")
+          i(data-feather="square")

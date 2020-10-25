@@ -1,27 +1,18 @@
 mixin share_button(slug, url, title)
   .share
     a.button.share-button(onclick="openShare()")
-      img(src=`${CDN}/icons/share-2.svg`, alt="Share")
+      i(data-feather="share-2")
       span Share
 
     .share-poll-dropdown
       .social-link
-        a(href=`https://twitter.com/intent/tweet?text=${title}&url=${encodeURIComponent(`${DOMAIN}/${url}`)}`, target="_blank")
-          img(src=`${CDN}/images/twitter.svg`, alt="Twitter")
-          span Twitter
+        a(href=`https://twitter.com/intent/tweet?text=${title}&url=${encodeURIComponent(`${DOMAIN}/${url}`)}`, target="_blank") Twitter
       .social-link
-        a(href=`https://www.reddit.com/submit?title=${title}&url=${encodeURIComponent(`${DOMAIN}/${url}`)}`, target="_blank")
-          img(src=`${CDN}/images/reddit.svg`, alt="Reddit")
-          span Reddit
-      .copy-links
+        a(href=`https://www.reddit.com/submit?title=${title}&url=${encodeURIComponent(`${DOMAIN}/${url}`)}`, target="_blank") Reddit
       .social-link
-        a(href=`https://t.me/share/url?url=${encodeURIComponent(`${DOMAIN}/${url}`)}&text=${title}`, target="_blank")
-          img(src=`${CDN}/images/telegram.svg`, alt="Telegram")
-          span Telegram
+        a(href=`https://t.me/share/url?url=${encodeURIComponent(`${DOMAIN}/${url}`)}&text=${title}`, target="_blank") Telegram
       .social-link
-        a(href=`https://wa.me/?text=${encodeURIComponent(`${title} ${DOMAIN}/${url}`)}`, target="_blank")
-          img(src=`${CDN}/images/whatsapp.svg`, alt="WhatsApp")
-          span WhatsApp
+        a(href=`https://wa.me/?text=${encodeURIComponent(`${title} ${DOMAIN}/${url}`)}`, target="_blank") WhatsApp
       .copy-links
         div
           label(for="copyUrl") URL
