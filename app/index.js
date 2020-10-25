@@ -31,7 +31,9 @@ app.set('view engine', 'pug');
 app.set('trust proxy', true);
 
 app.use(cors());
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
 app.use(compression());
 app.use(logger);
 app.use(express.json());
