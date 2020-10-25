@@ -23,7 +23,7 @@ block content
               .count= `${option.voteCount} Vote${option.voteCount < 2 ? '' : 's'}`
 
           .actions
-            +share_button(poll.slug, poll.resultUrl)
+            +share_button(poll.slug, poll.resultUrl, poll.question)
             a(class="button", href=`${DOMAIN}/poll/${poll.slug}`) Vote
 
   script
