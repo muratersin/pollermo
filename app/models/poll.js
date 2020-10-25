@@ -60,7 +60,7 @@ const pollSchema = new Schema({
   createdAt: {
     type: Date,
     default: dayjs().valueOf(),
-    get: (v) => dayjs(v).format('MM/DD/YYYY HH:mm'),
+    get: (v) => dayjs(new Date(v).toISOString()).format('MM/DD/YYYY HH:mm'),
   },
 });
 
