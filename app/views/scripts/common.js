@@ -41,7 +41,3 @@ const copyInputs = document.querySelectorAll('.copy-input');
 for (let i = 0; i < copyInputs.length; i += 1) {
   copyInputs[i].addEventListener('click', copyInputValue);
 }
-
-document.body.addEventListener('click', (e) => {
-  console.log(e.target.className);
-});
