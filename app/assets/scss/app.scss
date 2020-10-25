@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   .logo {
-    height: 150px;
+    height: 10rem;
     width: auto;
   }
 }
@@ -82,7 +82,7 @@
     .logo-wrapper {
       display: block;
       .logo {
-        height: 4rem;
+        height: 3.3rem;
       }
     }
     .button {
@@ -222,6 +222,9 @@
 .poll-buttons {
   display: flex;
   justify-content: flex-end;
+  margin-top: 2rem;
+  border-top: 1px solid silver;
+  padding-top: 1rem;
 }
 
 .poll-buttons button,
