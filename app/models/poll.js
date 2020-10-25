@@ -1,10 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose');
-const dayjs = require('dayjs');
 
 const Vote = require('./vote');
 const Enums = require('../constants/enum');
-const { verifyCaptchaToken } = require('../utils/helpers');
+const { verifyCaptchaToken, dayjs } = require('../utils/helpers');
 
 const { Schema } = mongoose;
 
@@ -59,8 +58,8 @@ const pollSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: dayjs().valueOf(),
-    get: (v) => dayjs(new Date(v).toISOString()).format('MM/DD/YYYY HH:mm'),
+    default: dayjs().utc(),
+    get: (v) => dayjs(v).format('MM/DD/YYYY HH:mm'),
   },
 });
 

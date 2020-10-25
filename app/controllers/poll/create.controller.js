@@ -5,8 +5,13 @@ const { getMongooseErrorMessages, makeUniqueArray } = require('../../utils/misc'
 
 function createPageController(req, res) {
   const {
-    question, dupcheck, options, multi, captcha,
+    question,
+    dupcheck,
+    options,
+    multi,
+    captcha,
   } = req.body;
+
   const poll = new Poll({
     question,
     dupcheck,
