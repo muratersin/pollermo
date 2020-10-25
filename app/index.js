@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const pollRouter = require('./routes/poll');
 
-const { accessLogger, errorLogger } = require('./utils/logger');
+const logger = require('./utils/logger');
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 const setLocalesMiddleware = require('./middlewares/set-locales');
@@ -27,8 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.set('trust proxy', true);
 
-app.use(accessLogger);
-app.use(errorLogger);
+app.use(logger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
