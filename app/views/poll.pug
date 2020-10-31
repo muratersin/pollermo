@@ -26,7 +26,8 @@ block content
           .alert.warning=errorMessage
           a(href=`/poll/${poll.slug}/result`): b Go To Result Page
 
-  script(type="text/javascript", src="https://www.google.com/recaptcha/api.js?render=6Le3ntgZAAAAAKtD4n4r5hLCodacIqfa5ZIvJ8dg")
+  if poll.captcha
+    script(type="text/javascript", src="https://www.google.com/recaptcha/api.js?render=6Le3ntgZAAAAAKtD4n4r5hLCodacIqfa5ZIvJ8dg")
   script
     include scripts/poll.js
     include scripts/common.js
