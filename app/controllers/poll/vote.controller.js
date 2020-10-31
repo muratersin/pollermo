@@ -2,9 +2,10 @@ const Enums = require('../../constants/enum');
 
 async function voteController(req, res, next) {
   try {
-    const { poll, ip } = req;
+    const { poll } = req;
     const { options, token } = req.body;
     const cookieVotedPolls = req.cookies.votedPolls || [];
+    const ip = req.headers['x-real-ip'] || req.ip;
 
     const errorMessage = await poll.vote({
       ip,
