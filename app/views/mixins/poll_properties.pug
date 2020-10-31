@@ -4,15 +4,15 @@ mixin poll_properties({ createdAt, dupcheck, ipDupCheckTitle, captcha, multi })
       div.prop
         i(data-feather="calendar")
         span= createdAt
-        div.prop
-          i(data-feather=`${dupcheck === '3' ? 'unlock' : 'lock'}`)
-          span= ipDupCheckTitle
-    .right
-      if captcha
-        div.prop
-          span Spam prevention
-          i(data-feather="shield")
       if multi
         div.prop
           span Multiple poll answer
           i(data-feather="square")
+    .right
+      div.prop
+        i(data-feather=`${dupcheck === '3' ? 'unlock' : 'lock'}`)
+        span= ipDupCheckTitle
+      if captcha
+        div.prop
+          span Spam prevention
+          i(data-feather="shield")
