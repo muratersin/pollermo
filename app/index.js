@@ -9,7 +9,7 @@ const compression = require('compression');
 const indexRouter = require('./routes/index');
 const pollRouter = require('./routes/poll');
 
-const logger = require('./utils/logger');
+const { errorLogger, requestLogger } = require('./utils/logger');
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 const setLocalesMiddleware = require('./middlewares/set-locales');
@@ -31,11 +31,14 @@ app.set('view engine', 'pug');
 app.set('trust proxy', true);
 
 app.use(cors());
-app.use(helmet({
-  contentSecurityPolicy: false,
-}));
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
+);
 app.use(compression());
-app.use(logger);
+app.use(errorLogger);
+app.use(requestLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
