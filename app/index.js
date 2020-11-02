@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
+const morgan = require('morgan');
 
 const indexRouter = require('./routes/index');
 const pollRouter = require('./routes/poll');
 
-const { errorLogger, requestLogger } = require('./utils/logger');
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 const setLocalesMiddleware = require('./middlewares/set-locales');
@@ -37,8 +37,7 @@ app.use(
   }),
 );
 app.use(compression());
-app.use(errorLogger);
-app.use(requestLogger);
+app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
