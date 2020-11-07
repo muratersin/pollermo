@@ -6,12 +6,12 @@ mixin poll_properties({ createdAt, dupcheck, ipDupCheckTitle, captcha, multi })
         span= createdAt
       if multi
         div.prop
-          span Multiple poll answer
           i(data-feather="square")
+          span Multiple poll answer
     .right
       div.prop
-        i(data-feather=`${dupcheck === '3' ? 'unlock' : 'lock'}`)
         span= ipDupCheckTitle
+        i(data-feather=`${dupcheck === '3' ? 'unlock' : 'lock'}`)
       if captcha
         div.prop
           span Spam prevention
