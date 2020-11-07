@@ -5,7 +5,8 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 const compression = require('compression');
-const morgan = require('morgan');
+
+const { errorLogger, requestLogger } = require('./utils/logger');
 
 const indexRouter = require('./routes/index');
 const pollRouter = require('./routes/poll');
@@ -37,7 +38,8 @@ app.use(
   }),
 );
 app.use(compression());
-app.use(morgan('combined'));
+app.use(requestLogger);
+app.use(errorLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
