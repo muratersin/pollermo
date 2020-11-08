@@ -2,11 +2,13 @@ const axios = require('axios');
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 
+const config = require('../config');
+
 dayjs.extend(utc);
 
 async function verifyCaptchaToken(token) {
   const url = 'https://www.google.com/recaptcha/api/siteverify';
-  const secret = process.env.CAPTCHA_SECRET_KEY;
+  const secret = config.captchaSecretKey;
   const payload = {
     secret,
     response: token,

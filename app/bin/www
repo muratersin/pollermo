@@ -1,0 +1,80 @@
+#!/usr/bin/env node
+/* eslint-disable no-console */
+/* eslint-disable no-restricted-globals */
+
+const debug = require('debug')('pollermo:server');
+const http = require('http');
+const mongoose = require('mongoose');
+
+const config = require('../config');
+const app = require('../index');
+
+function onError(message = 'Something went wrong!') {
+  console.error(message);
+  process.exit(1);
+}
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  const p = parseInt(val, 10);
+
+  if (isNaN(p)) {
+    // named pipe
+    return val;
+  }
+
+  if (p >= 0) {
+    // port number
+    return p;
+  }
+
+  return false;
+}
+
+function createServer() {
+  /**
+   * Get port from environment and store in Express.
+   */
+  const port = normalizePort(config.port);
+  app.set('port', port);
+
+  const server = http.createServer(app);
+
+  server.listen(port);
+
+  server.on('error', (error) => {
+    if (error.syscall !== 'listen') {
+      throw error;
+    }
+
+    const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+      case 'EACCES':
+        onError(`${bind} requires elevated privileges`);
+        break;
+      case 'EADDRINUSE':
+        onError(`${bind} is already in use`);
+        break;
+      default:
+        throw error;
+    }
+  });
+
+  server.on('listening', () => {
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+    debug(`Listening on ${bind}`);
+  });
+}
+
+mongoose
+  .connect(config.mongodbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(createServer)
+  .catch(onError);
