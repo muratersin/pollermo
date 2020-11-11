@@ -20,4 +20,6 @@ router.get('/:slug', [findPollBySlug, isEmbeded, poll.pollPageController]);
 
 router.get('/:slug/result', [findPollBySlug, isEmbeded, poll.resultPageController]);
 
+router.get('/:slug/result-stream', [findPollBySlug, poll.resultStreamController]);
+
 module.exports = router;

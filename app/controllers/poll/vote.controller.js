@@ -1,3 +1,4 @@
+const clientdb = require('../../lib/clientdb');
 const Enums = require('../../constants/enum');
 
 async function voteController(req, res, next) {
@@ -26,6 +27,12 @@ async function voteController(req, res, next) {
       // eslint-disable-next-line no-underscore-dangle
       res.cookie('votedPolls', [...cookieVotedPolls, poll._id]);
     }
+
+    const clients = clientdb.get(poll._id);
+    clients.forEach((c) => {
+      c.res.write(`data: ${JSON.stringify(poll.stats)}\n\n`);
+      c.res.flush();
+    });
 
     res.redirect(`/poll/${poll.slug}/result`);
   } catch (err) {

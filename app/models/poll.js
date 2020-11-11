@@ -58,7 +58,7 @@ const pollSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: dayjs().utc(),
+    default: dayjs().utc().valueOf(),
     get: (v) => dayjs(v).format('MM/DD/YYYY HH:mm'),
   },
 });
@@ -133,6 +133,25 @@ pollSchema.virtual('ipDupCheckTitle').get(function totalVote() {
     default:
       return 'No Duplication Checking';
   }
+});
+
+pollSchema.virtual('stats').get(function getStats() {
+  const stats = {
+    totalVote: this.totalVote,
+    options: [],
+  };
+
+  this.options.forEach((o) => {
+    const totalVote = this.totalVote || 1;
+    const percent = ((o.voteCount * 100) / totalVote).toFixed(2).replace('.00', '');
+    stats.options.push({
+      _id: o._id,
+      voteCount: o.voteCount,
+      percent,
+    });
+  });
+
+  return stats;
 });
 
 module.exports = mongoose.model('Poll', pollSchema);
