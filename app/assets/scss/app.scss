@@ -144,12 +144,18 @@
 
 
 .option-result-wrapper .result-bar {
+  width: 0%;
   height: 10px;
   background-color: #ff6361;
   border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
   border: 0px solid #000000;
+  transition: width 0.3s linear;
+  -moz-transition: width 0.3s linear; /* Firefox 4 */
+  -webkit-transition: width 0.3s linear; /* Safari and Chrome */
+  -o-transition: width 0.3s linear; /* Opera */
+  -ms-transition: width 0.3s linear; /* Explorer 10 */
 }
 
 .option-result-wrapper .count {

@@ -10,7 +10,7 @@ block content
     div.page
       +poll_properties(poll)
       .row
-        .column
+        .column(id="poll", data-slug=`${poll.slug}`)
           .question= poll.question
 
           each option in poll.options
@@ -18,8 +18,7 @@ block content
               .option
                 span= option.text
                 span.percent= `%${option.percent}`
-              if option.voteCount > 0
-                .result-bar(style=`width: ${option.percent}%`)
+              .result-bar(style=`width: ${option.percent}%`)
               .count= `${option.voteCount} Vote${option.voteCount < 2 ? '' : 's'}`
 
           .actions
@@ -28,6 +27,7 @@ block content
 
   script
     include scripts/common.js
+    include scripts/result.js
 
   
 
