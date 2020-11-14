@@ -250,9 +250,9 @@
   padding-top: 1rem;
 }
 
-.poll-buttons button,
-a {
+.poll-buttons .middle {
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .share-button img {
@@ -385,9 +385,9 @@ a {
     flex-direction: column;
   }
 
-  .poll-buttons button,
-  a {
+  .poll-buttons .middle {
     margin-left: 0;
+    margin-right: 0;
   }
 
   .share-button {

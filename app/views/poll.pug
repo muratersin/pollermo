@@ -18,7 +18,7 @@ block content
               span.label-body= option.text
           .poll-buttons
             +share_button(poll.slug, poll.url, poll.question)
-            a(class="button result-button", href=`${DOMAIN}/poll/${poll.slug}/result`) Result
+            a(class="button result-button middle", href=`${DOMAIN}/poll/${poll.slug}/result`) Result
             button(class="button-primary vote-button", onclick=`submit("${poll.slug}", ${poll.captcha})`, id="vote-button") Vote
 
     if errorMessage
