@@ -58,12 +58,13 @@ const pollSchema = new Schema(
       },
     },
     createdAt: {
-      type: Date,
-      get: (d) => dayjs(d).format('DD/MM/YYYY : HH:mm'),
+      type: Number,
+      get: (d) => dayjs(d).local().format('DD/MM/YYYY : HH:mm'),
     },
+    updatedAt: Number,
   },
   {
-    timestamps: true,
+    timestamps: { currentTime: () => Math.floor(Date.now() / 1000) },
   },
 );
 
