@@ -94,6 +94,26 @@
   }
 }
 
+.vote-option {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid #efe5dc;
+  cursor: pointer;
+  border-radius: 0 0 20px 20px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #fbfefb;
+  }
+
+  input {
+    margin: 0;
+  }
+}
+
 .question {
   overflow-wrap: break-word;
   padding: 1rem;
@@ -134,14 +154,12 @@
     position: absolute;
     top: 0;
     right: 0;
-    background-color: #fff9d0;
+    background-color: #fcf5c7;
     width: 60px;
     text-align: center;
     color: #ff6361;
   }
 }
-
-
 
 .option-result-wrapper .result-bar {
   width: 0%;
@@ -200,7 +218,7 @@
 
 .alert.warning {
   color: #856404;
-  background-color: #fff3cd;
+  background-color: #fcf5c7;
   border-color: #ffeeba;
 }
 
@@ -229,7 +247,6 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 2rem;
-  border-top: 1px solid silver;
   padding-top: 1rem;
 }
 
@@ -243,9 +260,16 @@ a {
   margin-right: 0.5rem;
 }
 
+.result-button {
+  background-color: #ffc09f;
+  border: none;
+}
+
 .share-button {
   display: flex;
   align-items: center;
+  background-color: #fcf5c7;
+  border: none;
 }
 
 .button.paginate.last::before {
@@ -256,7 +280,6 @@ a {
   display: flex;
   margin: 1rem 0;
   font-size: 12px;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -279,6 +302,7 @@ a {
 .poll-properties div .prop {
   display: flex;
   align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .poll-properties .right .prop {

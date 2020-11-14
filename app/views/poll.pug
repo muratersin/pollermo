@@ -13,12 +13,13 @@ block content
         .column
           .question= poll.question
           each option in poll.options
-            button(class="option-btn", id=option._id, onclick=`selectOption("${option._id}", "${poll.multi}")`)= option.text
-
+            label.vote-option
+              input(type=`${poll.multi ? 'checkbox' : 'radio'}`, name="options", value=option._id)
+              span.label-body= option.text
           .poll-buttons
             +share_button(poll.slug, poll.url, poll.question)
-            a(class="button", href=`${DOMAIN}/poll/${poll.slug}/result`) Result
-            button(class="button-primary vote-button", onclick=`submit("${poll.slug}", ${poll.captcha})`) Vote
+            a(class="button result-button", href=`${DOMAIN}/poll/${poll.slug}/result`) Result
+            button(class="button-primary vote-button", onclick=`submit("${poll.slug}", ${poll.captcha})`, id="vote-button") Vote
 
     if errorMessage
       .row
