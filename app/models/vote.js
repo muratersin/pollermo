@@ -2,29 +2,19 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-const voteSchema = new Schema(
-  {
-    pollId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-    },
-    optionId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-    },
-    ip: {
-      type: String,
-      required: true,
-    },
-    createdAt: Number,
+const voteSchema = new Schema({
+  pollId: {
+    type: Schema.Types.ObjectId,
+    required: true,
   },
-  {
-    timestamps: {
-      createdAt: true,
-      updatedAt: false,
-      currentTime: () => Math.floor(Date.now() / 1000),
-    },
+  optionId: {
+    type: Schema.Types.ObjectId,
+    required: true,
   },
-);
+  ip: {
+    type: String,
+    required: true,
+  },
+});
 
 module.exports = mongoose.model('Vote', voteSchema);
