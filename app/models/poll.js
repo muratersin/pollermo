@@ -58,7 +58,7 @@ const pollSchema = new Schema({
   },
   createdAt: {
     type: Number,
-    get: (d) => dayjs(new Date(d)).utc(true).format('DD/MM/YYYY HH:mm'),
+    get: (d) => dayjs(new Date(d * 1000)).utc(true).format('DD/MM/YYYY HH:mm'),
     default: dayjs().utc().unix(),
   },
 });
