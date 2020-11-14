@@ -18,10 +18,10 @@ function selectOption(id, multi) {
   btn.classList.toggle(selectedClass);
 }
 
-function createForm(slug) {
+function createForm(id) {
   const form = document.createElement('form');
   form.method = 'POST';
-  form.action = `/poll/${slug}`;
+  form.action = `/${id}`;
   form.style = 'display:none';
   return form;
 }
@@ -43,23 +43,23 @@ function getToken(showCaptcha, callBack) {
   });
 }
 
-function submit(slug, showCaptcha) {
+function submit(id, showCaptcha) {
   getToken(showCaptcha, (token) => {
-    const selectedOption = [
-      ...document.querySelectorAll("input[name='options']"),
-    ].filter((i) => i.checked);
+    const selectedOption = [...document.querySelectorAll("input[name='options']")]
+      .filter((i) => i.checked)
+      .map((i) => i.value);
 
     if (selectedOption.length < 1) {
       return;
     }
 
-    const form = createForm(slug);
+    const form = createForm(id);
 
     const tokenInput = createInput('token', token);
     form.appendChild(tokenInput);
 
-    for (const input of selectedOption) {
-      form.appendChild(input);
+    for (const value of selectedOption) {
+      form.appendChild(createInput('options', value));
     }
 
     document.body.appendChild(form);

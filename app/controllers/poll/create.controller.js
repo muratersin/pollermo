@@ -1,5 +1,3 @@
-const snakeCase = require('lodash.snakecase');
-
 const Poll = require('../../models/poll');
 const { getMongooseErrorMessages, makeUniqueArray } = require('../../utils/misc');
 
@@ -19,9 +17,6 @@ function createPageController(req, res) {
     multi: multi === 'on',
   });
 
-  const slug = `${snakeCase(question)}_${poll.id}`;
-
-  poll.slug = slug;
   poll.options = makeUniqueArray(options)
     .filter((o) => o)
     .map((o) => ({
@@ -35,7 +30,7 @@ function createPageController(req, res) {
       });
     }
 
-    res.redirect(`/poll/${slug}`);
+    res.redirect(`/${poll._id}`);
   });
 }
 

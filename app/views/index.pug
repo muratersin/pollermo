@@ -7,13 +7,13 @@ block content
       h1= title
       p Search or create quick and simple polls
 
-      form(action=`${DOMAIN}/poll` method="get")
+      form(action=`${DOMAIN}/search` method="get")
         label(for="search") Search for polls
         input.u-full-width(placeholder="write sometings", name="q", type="text", id="search", minlength="3")
         button(type="submit", class="button-primary") Search
 
       div or
       span
-        a(href=`${DOMAIN}/poll/create`, class="bold-link") Create  
+        a(href=`${DOMAIN}/create`, class="bold-link") Create  
       span a poll
 

@@ -10,7 +10,7 @@ block content
     div.page
       +poll_properties(poll)
       .row
-        .column(id="poll", data-slug=`${poll.slug}`)
+        .column(id="poll", data-id=`${poll._id}`)
           .question= poll.question
 
           each option in poll.options
@@ -22,8 +22,8 @@ block content
               .count= `${option.voteCount} Vote${option.voteCount < 2 ? '' : 's'}`
 
           .actions
-            +share_button(poll.slug, poll.resultUrl, poll.question)
-            a(class="button", href=`${DOMAIN}/poll/${poll.slug}`) Vote
+            +share_button(poll._id, poll.resultUrl, poll.question)
+            a(class="button", href=`${DOMAIN}/${poll._id}`) Vote
 
   script
     include scripts/common.js

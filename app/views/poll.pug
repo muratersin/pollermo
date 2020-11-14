@@ -17,15 +17,15 @@ block content
               input(type=`${poll.multi ? 'checkbox' : 'radio'}`, name="options", value=option._id)
               span.label-body= option.text
           .poll-buttons
-            +share_button(poll.slug, poll.url, poll.question)
-            a(class="button result-button middle", href=`${DOMAIN}/poll/${poll.slug}/result`) Result
-            button(class="button-primary vote-button", onclick=`submit("${poll.slug}", ${poll.captcha})`, id="vote-button") Vote
+            +share_button(poll._id, poll.url, poll.question)
+            a(class="button result-button middle", href=`${DOMAIN}/${poll._id}/result`) Result
+            button(class="button-primary vote-button", onclick=`submit("${poll._id}", ${poll.captcha})`, id="vote-button") Vote
 
     if errorMessage
       .row
         .column
           .alert.warning=errorMessage
-          a(href=`/poll/${poll.slug}/result`): b Go To Result Page
+          a(href=`/${poll._id}/result`): b Go To Result Page
 
   if poll.captcha
     script(type="text/javascript", src=`https://www.google.com/recaptcha/api.js?render=${CAPTCHA_SITE_KEY}`)

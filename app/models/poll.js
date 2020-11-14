@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const Vote = require('./vote');
 const Enums = require('../constants/enum');
-const { verifyCaptchaToken, dayjs } = require('../utils/helpers');
+const { verifyCaptchaToken } = require('../utils/helpers');
 
 const { Schema } = mongoose;
 
@@ -20,10 +20,6 @@ const optionSchema = new Schema({
 
 const pollSchema = new Schema(
   {
-    slug: {
-      type: String,
-      requred: true,
-    },
     question: {
       type: String,
       minlength: [6, 'The question must be at least 6 characters long'],
@@ -59,7 +55,10 @@ const pollSchema = new Schema(
     },
   },
   {
-    timestamps: true,
+    timestamps: {
+      createdAt: true,
+      updatedAt: false,
+    },
   },
 );
 
@@ -115,11 +114,11 @@ pollSchema.virtual('totalVote').get(function totalVote() {
 });
 
 pollSchema.virtual('url').get(function totalVote() {
-  return `poll/${this.slug}`;
+  return `${this._id}`;
 });
 
 pollSchema.virtual('resultUrl').get(function totalVote() {
-  return `poll/${this.slug}/result`;
+  return `${this._id}/result`;
 });
 
 pollSchema.virtual('ipDupCheckTitle').get(function totalVote() {

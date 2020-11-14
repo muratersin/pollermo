@@ -3,10 +3,10 @@ const createError = require('http-errors');
 const Poll = require('../models/poll');
 const MESSAGES = require('../constants/messages');
 
-function findPollBySlug(req, res, next) {
-  const { slug } = req.params;
+function findPollById(req, res, next) {
+  const { id } = req.params;
 
-  Poll.findOne({ slug }, (err, result) => {
+  Poll.findById(id, (err, result) => {
     if (!result) return next(createError(404, MESSAGES.NOT_FOUND));
 
     req.poll = result;
@@ -14,4 +14,4 @@ function findPollBySlug(req, res, next) {
   });
 }
 
-module.exports = findPollBySlug;
+module.exports = findPollById;

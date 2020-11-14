@@ -34,7 +34,7 @@ async function voteController(req, res, next) {
       c.res.flush();
     });
 
-    res.redirect(`/poll/${poll.slug}/result`);
+    res.redirect(`/${poll._id}/result`);
   } catch (err) {
     next(err);
   }

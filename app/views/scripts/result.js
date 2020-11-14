@@ -1,7 +1,7 @@
 const pollWrapper = document.getElementById('poll');
-const slug = pollWrapper.getAttribute('data-slug');
+const pollId = pollWrapper.getAttribute('data-id');
 
-const events = new EventSource(`/poll/${slug}/result-stream`);
+const events = new EventSource(`/${pollId}/result-stream`);
 
 events.onmessage = (event) => {
   const data = JSON.parse(event.data);

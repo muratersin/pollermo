@@ -8,7 +8,6 @@ const compression = require('compression');
 const { errorLogger, requestLogger } = require('../utils/logger');
 
 const indexRouter = require('../routes/index');
-const pollRouter = require('../routes/poll');
 
 const notFoundMiddleware = require('../middlewares/not-found');
 const errorHandlerMiddleware = require('../middlewares/error-handler');
@@ -36,7 +35,7 @@ function init(app) {
   app.use(setLocalesMiddleware);
 
   app.use('/', indexRouter);
-  app.use('/poll', pollRouter);
+
   // catch 404 and forward to error handler
   app.use(notFoundMiddleware);
 

@@ -15,7 +15,7 @@ block content
                 each poll in polls
                   tr
                     td.question-column 
-                      a(href=`${DOMAIN}/poll/${poll.slug}`)= poll.question
+                      a(href=`${DOMAIN}/${poll._id}`)= poll.question
                     td.meta-column= poll.totalVote
                     td.meta-column.date(data-date= poll.createdAt)
         include partials/pagination

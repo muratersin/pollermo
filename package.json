@@ -28,7 +28,6 @@
     "feather-icons": "4.28.0",
     "helmet": "4.1.1",
     "http-errors": "1.8.0",
-    "lodash.snakecase": "4.1.1",
     "mongoose": "5.10.11",
     "morgan": "1.10.0",
     "pug": "3.0.0",
