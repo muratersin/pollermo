@@ -16,9 +16,14 @@ const voteSchema = new Schema(
       type: String,
       required: true,
     },
+    createdAt: Number,
   },
   {
-    timestamps: true,
+    timestamps: {
+      createdAt: true,
+      updatedAt: false,
+      currentTime: () => Math.floor(Date.now() / 1000),
+    },
   },
 );
 
