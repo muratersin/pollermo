@@ -3,7 +3,7 @@ mixin poll_properties({ createdAt, dupcheck, ipDupCheckTitle, captcha, multi })
     .left
       div.prop
         i(data-feather="calendar")
-        span= formatDate(createdAt)
+        span.date= createdAt
       if multi
         div.prop
           i(data-feather="square")
