@@ -1,5 +1,3 @@
-const { domain } = require('../config');
-
 const makeUniqueArray = (arr) => [...new Set(arr)];
 
 const toQueryString = (obj) => new URLSearchParams(obj).toString();
@@ -29,7 +27,7 @@ function getPaginationMeta({
     pages.push({
       page: i,
       current: i === page,
-      url: `${domain}/search?${toQueryString({ ...query, p: i })}`,
+      url: `?${toQueryString({ ...query, p: i })}`,
     });
   }
 
@@ -37,7 +35,7 @@ function getPaginationMeta({
     pages.unshift({
       page: 1,
       first: true,
-      url: `${domain}/search?${toQueryString({ ...query, p: 1 })}`,
+      url: `?${toQueryString({ ...query, p: 1 })}`,
     });
   }
 
@@ -45,7 +43,7 @@ function getPaginationMeta({
     pages.push({
       page: totalPage,
       last: true,
-      url: `${domain}/search?${toQueryString({ ...query, p: totalPage })}`,
+      url: `?${toQueryString({ ...query, p: totalPage })}`,
     });
   }
 
