@@ -1,3 +1,5 @@
+const { domain } = require('../config');
+
 const makeUniqueArray = (arr) => [...new Set(arr)];
 
 const toQueryString = (obj) => new URLSearchParams(obj).toString();
@@ -16,7 +18,6 @@ function getPaginationMeta({
   total,
   page,
   limit,
-  baseUrl,
   query = {},
 }) {
   const totalPage = Math.ceil(total / limit);
@@ -28,7 +29,7 @@ function getPaginationMeta({
     pages.push({
       page: i,
       current: i === page,
-      url: `${baseUrl}?${toQueryString({ ...query, p: i })}`,
+      url: `${domain}/search?${toQueryString({ ...query, p: i })}`,
     });
   }
 
@@ -36,7 +37,7 @@ function getPaginationMeta({
     pages.unshift({
       page: 1,
       first: true,
-      url: `${baseUrl}?${toQueryString({ ...query, p: 1 })}`,
+      url: `${domain}/search?${toQueryString({ ...query, p: 1 })}`,
     });
   }
 
@@ -44,7 +45,7 @@ function getPaginationMeta({
     pages.push({
       page: totalPage,
       last: true,
-      url: `${baseUrl}?${toQueryString({ ...query, p: totalPage })}`,
+      url: `${domain}/search?${toQueryString({ ...query, p: totalPage })}`,
     });
   }
 

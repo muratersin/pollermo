@@ -28,7 +28,6 @@ async function listPageController(req, res, next) {
       page,
       limit,
       query: req.query,
-      baseUrl: req.baseUrl,
     });
 
     res.render('list', {
