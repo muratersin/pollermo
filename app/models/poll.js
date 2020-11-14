@@ -57,10 +57,7 @@ const pollSchema = new Schema(
           "Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.",
       },
     },
-    createdAt: {
-      type: Number,
-      get: (d) => dayjs(d).format('DD/MM/YYYY : HH:mm'),
-    },
+    createdAt: Number,
     updatedAt: Number,
   },
   {
