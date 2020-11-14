@@ -11,11 +11,12 @@ block content
       +poll_properties(poll)
       .row
         .column
-          .question= poll.question
-          each option in poll.options
-            label.vote-option
-              input(type=`${poll.multi ? 'checkbox' : 'radio'}`, name="options", value=option._id)
-              span.label-body= option.text
+          div(id=`poll-${poll._id}`)
+            .question= poll.question
+            each option in poll.options
+              label.vote-option
+                input(type=`${poll.multi ? 'checkbox' : 'radio'}`, name="options", value=option._id)
+                span.label-body= option.text
           .poll-buttons
             +share_button(poll._id, poll.url, poll.question)
             a(class="button result-button middle", href=`${DOMAIN}/${poll._id}/result`) Result
