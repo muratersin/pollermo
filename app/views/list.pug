@@ -17,7 +17,8 @@ block content
                     td.question-column 
                       a(href=`${DOMAIN}/poll/${poll.slug}`)= poll.question
                     td.meta-column= poll.totalVote
-                    td.meta-column.date= poll.createdAt
+                    td.meta-column
+                      span.date.hidden= poll.createdAt
         include partials/pagination
       else
         include partials/no_result

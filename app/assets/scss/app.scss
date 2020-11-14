@@ -370,6 +370,10 @@ a {
   border-radius: 3px;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 @media only screen and (max-width: 900px) {
   .list .question-column {
     max-width: 100px;
