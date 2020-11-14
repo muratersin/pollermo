@@ -59,7 +59,7 @@ const pollSchema = new Schema(
     },
     createdAt: {
       type: Number,
-      get: (d) => dayjs(d).local().format('DD/MM/YYYY : HH:mm'),
+      get: (d) => dayjs(d).format('DD/MM/YYYY : HH:mm'),
     },
     updatedAt: Number,
   },
