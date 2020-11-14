@@ -45,23 +45,21 @@ function getToken(showCaptcha, callBack) {
 
 function submit(slug, showCaptcha) {
   getToken(showCaptcha, (token) => {
-    const selectedOptionButtons = [
-      ...document.querySelectorAll('.option-btn.button-primary'),
-    ];
+    const selectedOption = [
+      ...document.querySelectorAll("input[name='options']"),
+    ].filter((i) => i.checked);
 
-    if (selectedOptionButtons.length < 1) {
+    if (selectedOption.length < 1) {
       return;
     }
 
-    const optionIds = selectedOptionButtons.map((b) => b.id);
     const form = createForm(slug);
 
     const tokenInput = createInput('token', token);
     form.appendChild(tokenInput);
 
-    for (const id of optionIds) {
-      const optionInput = createInput('options', id);
-      form.appendChild(optionInput);
+    for (const input of selectedOption) {
+      form.appendChild(input);
     }
 
     document.body.appendChild(form);

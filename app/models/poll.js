@@ -18,50 +18,54 @@ const optionSchema = new Schema({
   },
 });
 
-const pollSchema = new Schema({
-  slug: {
-    type: String,
-    requred: true,
-  },
-  question: {
-    type: String,
-    minlength: [6, 'The question must be at least 6 characters long'],
-    maxLength: [500, 'The question must be maximım 500 characters long'],
-    required: [true, "Question can't be null"],
-  },
-  dupcheck: {
-    type: String,
-    default: Enums.DUP_CHECK.IP_DUP_CHECK,
-    enum: [
-      Enums.DUP_CHECK.IP_DUP_CHECK,
-      Enums.DUP_CHECK.BROWSER_COOKIE_DUP_CHECK,
-      Enums.DUP_CHECK.NO_DUP_CHECK,
-    ],
-  },
-  multi: {
-    type: Boolean,
-    default: false,
-  },
-  captcha: {
-    type: Boolean,
-    default: false,
-  },
-  options: {
-    type: [optionSchema],
-    validate: {
-      validator() {
-        return !(this.options.length < 2 || this.options.length > 40);
+const pollSchema = new Schema(
+  {
+    slug: {
+      type: String,
+      requred: true,
+    },
+    question: {
+      type: String,
+      minlength: [6, 'The question must be at least 6 characters long'],
+      maxLength: [500, 'The question must be maximım 500 characters long'],
+      required: [true, "Question can't be null"],
+    },
+    dupcheck: {
+      type: String,
+      default: Enums.DUP_CHECK.IP_DUP_CHECK,
+      enum: [
+        Enums.DUP_CHECK.IP_DUP_CHECK,
+        Enums.DUP_CHECK.BROWSER_COOKIE_DUP_CHECK,
+        Enums.DUP_CHECK.NO_DUP_CHECK,
+      ],
+    },
+    multi: {
+      type: Boolean,
+      default: false,
+    },
+    captcha: {
+      type: Boolean,
+      default: false,
+    },
+    options: {
+      type: [optionSchema],
+      validate: {
+        validator() {
+          return !(this.options.length < 2 || this.options.length > 40);
+        },
+        message: () =>
+          "Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.",
       },
-      message: () =>
-        "Option count must be at least 2 or a maximum of 40 and can't contain the duplicate value.",
+    },
+    createdAt: {
+      type: Date,
+      get: (d) => dayjs(d).format('DD/MM/YYYY : HH:mm'),
     },
   },
-  createdAt: {
-    type: Date,
-    default: dayjs().utc().valueOf(),
-    get: (v) => dayjs(v).format('MM/DD/YYYY HH:mm'),
+  {
+    timestamps: true,
   },
-});
+);
 
 pollSchema.methods.vote = async function vote({
   options,
