@@ -113,6 +113,10 @@ pollSchema.virtual('totalVote').get(function totalVote() {
   return this.options.reduce((acc, option) => acc + option.voteCount, 0);
 });
 
+pollSchema.virtual('description').get(function totalVote() {
+  return this.options.map((option) => option.text).join(', ');
+});
+
 pollSchema.virtual('url').get(function totalVote() {
   return `${this._id}`;
 });

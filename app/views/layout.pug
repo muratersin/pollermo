@@ -1,7 +1,7 @@
 doctype html
 html(lang="en")
   head
-    title= title || 'Pollermo - Create quick and simple polls'
+    title=TITLE
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(property="og:site_name" content="Pollermo")
@@ -9,14 +9,14 @@ html(lang="en")
     meta(property="og:url" content=CURRENT_URL)
     meta(property="og:description" content=DESCRIPTION)
     meta(property="og:image" content=PAGE_IMAGE_URL)
-    meta(name="title", content=title)
+    meta(name="title", content=TITLE)
     meta(name="type", content="website")
     meta(name="url", content=CURRENT_URL)
-    meta(name="description", content= description)
+    meta(name="description", content=DESCRIPTION)
     meta(name="twitter:card" content="summary_large_image")
     meta(name="twitter:site" content="@PollermoCom")
     meta(name="twitter:creator" content="@PollermoCom")
-    meta(name="twitter:title" content=title)
+    meta(name="twitter:title" content=TITLE)
     meta(name="twitter:description" content=DESCRIPTION)
     meta(name="twitter:image" content=PAGE_IMAGE_URL)
 
