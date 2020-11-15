@@ -9,6 +9,7 @@ function setLocales(req, res, next) {
   res.locals.CURRENT_URL = `${config.domain}${req.url}`;
   res.locals.TITLE = 'Pollermo - Create quick and simple polls';
   res.locals.DESCRIPTION = 'Pollermo';
+  res.locals.PAGE_IMAGE_URL = `${config.domain}/images/ss.png`;
   next();
 }
 
