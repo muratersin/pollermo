@@ -10,7 +10,7 @@ function resultPageController(req, res) {
 
   res.render('result', {
     poll,
-    TITLE: `Poll Result - ${poll.question}`,
+    TITLE: poll.question,
     DESCRIPTION: poll.description,
   });
 }

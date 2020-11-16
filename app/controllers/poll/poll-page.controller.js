@@ -3,8 +3,8 @@ function pollPageController(req, res) {
 
   res.render('poll', {
     poll,
-    TITLE: `Poll - ${poll.question}`,
-    DESCRIPTION: `Poll - ${poll.description}`,
+    TITLE: poll.question,
+    DESCRIPTION: poll.description,
   });
 }
 
