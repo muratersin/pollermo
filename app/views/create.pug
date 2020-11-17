@@ -1,7 +1,7 @@
 extends layout
-
 block content
 
+  - var isCreatePage = true;
   include partials/navbar
 
   div.container
@@ -36,7 +36,7 @@ block content
                 input(type="checkbox", name="captcha")
                 span.label-body Improve spam prevention
 
-              input.button-primary(type="submit" value="Create Poll")
+              input.button-primary(type="submit" value="Create")
 
               if errorMessages && errorMessages.length > 0
                 .alert.error

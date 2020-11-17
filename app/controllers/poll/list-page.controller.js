@@ -10,17 +10,13 @@ async function listPageController(req, res, next) {
     const skip = (page - 1) * limit;
 
     if (q) {
-      query.question = { $regex: q };
+      query.question = { $regex: q, $options: 'i' };
     }
 
     let polls = [];
     const total = await Poll.countDocuments(query).exec();
     if (total > 0) {
-      polls = await Poll.find(query)
-        .sort('-createdAt')
-        .skip(skip)
-        .limit(limit)
-        .exec();
+      polls = await Poll.find(query).sort('-createdAt').skip(skip).limit(limit).exec();
     }
 
     const pages = getPaginationMeta({
